@@ -1,0 +1,15 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import APIClient from "../services/api-client";
+import { Game } from "../entities/Game";
+
+const apiClient = new APIClient<Game>("/games");
+
+const useGameDetail = (slug: string) => {
+  return useQuery({
+    queryKey: ["games", slug],
+    queryFn: () => apiClient.get(slug),
+  });
+};
+
+export default useGameDetail;
